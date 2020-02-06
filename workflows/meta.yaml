@@ -1,0 +1,56 @@
+{% set name = "workflows" %}
+{% set version = "0.69" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 4f88903d5e7f3226aef6daebdd9743a231049338991b884cd4070bf3ae9a265b
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv "
+
+requirements:
+  host:
+    - enum34
+    - pip
+    - python
+    - setuptools
+    - six
+    - stomp.py
+  run:
+    - enum34
+    - python
+    - setuptools
+    - six
+    - stomp.py
+
+test:
+  imports:
+    - workflows
+    - workflows.contrib
+    - workflows.frontend
+    - workflows.logging
+    - workflows.recipe
+    - workflows.services
+    - workflows.transport
+    - workflows.util
+  requires:
+    - mock
+    - pytest
+
+about:
+  home: https://github.com/DiamondLightSource/python-workflows
+  license: BSD
+  license_family: BSD
+  license_file: 
+  summary: Supervised data processing in distributed environments
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here

@@ -1,0 +1,24 @@
+package:
+        name: opusfc
+        version: "1.2.0"
+
+build:
+        number: 0
+        # closed source, only wheels are provided...
+
+requirements:
+        build:
+                - python
+                - pip
+        run:
+                - python
+                - numpy
+
+test:
+        imports:
+                - opusFC
+
+about:
+        home: http://midir.lightsource.ca/
+        license: MIT
+

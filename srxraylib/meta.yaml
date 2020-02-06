@@ -1,0 +1,48 @@
+{% set name = "srxraylib" %}
+{% set version = "1.0.22" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 8dffbd5ac6d7cdb5631550e2b0ea1052714edb54c6181261020471cd38d41629
+
+build:
+  number: 0
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools
+  run:
+    - numpy
+    - python
+    - scipy
+    - setuptools
+
+test:
+  imports:
+    - srxraylib
+    - srxraylib.metrology
+    - srxraylib.plot
+    - srxraylib.sources
+    - srxraylib.util
+    - srxraylib.waveoptics
+
+about:
+  home: https://github.com/lucarebuffi/SR-xraylib
+  license: GNU General Public v3 or later (GPLv3+)
+  license_family: GPL3
+  license_file: 
+  summary: Synchrotron Radiation X-ray library
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here

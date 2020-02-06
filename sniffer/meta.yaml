@@ -1,0 +1,51 @@
+{% set name = "sniffer" %}
+{% set version = "0.4.0" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: e90c1ad4bd3c31a5fad8e03d45dfc83377b31420aa0779f17280c817ce0c9dd8
+
+build:
+  number: 0
+  entry_points:
+    - sniffer = sniffer:main
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv "
+  noarch: python
+
+requirements:
+  host:
+    - colorama
+    - nose
+    - pip
+    - python
+    - python-termstyle
+  run:
+    - colorama
+    - nose
+    - python
+    - python-termstyle
+
+test:
+  imports:
+    - sniffer
+    - sniffer.scanner
+    - sniffer.tests
+  commands:
+    - sniffer --help
+
+about:
+  home: http://github.com/jeffh/sniffer/
+  license: MIT
+  license_family: MIT
+  license_file: 
+  summary: An automatic test runner. Supports nose out of the box.
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here

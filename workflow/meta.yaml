@@ -1,0 +1,41 @@
+{% set name = "workflow" %}
+{% set version = "2.1.5" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: c2f6f9087b51727411400daf56baebd44848d933f25f706a2b1ac8563bf9f1f5 
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv "
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools
+    - autosemver
+    - pytest-runner
+  run:
+    - python
+    - setuptools
+    - autosemver
+    - configobj
+    - blinker
+    - six
+    - enum34
+
+test:
+  imports:
+    - workflow
+
+about:
+  home: http://workflow.readthedocs.io/
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here

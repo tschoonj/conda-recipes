@@ -1,0 +1,44 @@
+{% set name = "relion_zo" %}
+{% set version = "1.4" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+        url: file:///dls_sw/apps/EM/relion_zocalo/dist/{{ name }}-{{ version }}.tar.gz
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+  noarch: python
+
+requirements:
+  host:
+    - pip
+    - python >=3.6
+    - setuptools
+    - pytest-runner
+  run:
+    - python >=3.6
+    - zocalo
+    - workflows
+    - pathlib2
+    - schedule
+    - ispyb ==5.4.1
+
+test:
+  imports:
+    - relion_zo
+
+about:
+  license: BSD
+  license_family: BSD
+  license_file: 
+  summary: Zocalo runners for Relion
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - tschoonj

@@ -1,0 +1,49 @@
+{% set name = "vinyl-srw" %}
+{% set version = "1.0.1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name | replace("-", "_") }}/{{ name | replace("-", "_") }}-{{ version }}.tar.gz
+  sha256: cba4c7cc2018b059d9a7d95d0e569f604e940afc98bd0277b53679d8b9c470a6
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ compiler('fortran') }}
+    - make  # [unix]
+    - git
+  host:
+    - numpy
+    - pip
+    - python
+  run:
+    - numpy
+    - pillow
+    - python
+    - scipy
+
+test:
+  imports:
+    - vinyl_srw
+    - vinyl_srw.tests
+
+about:
+  home: https://github.com/PaNOSC-ViNYL/srwpy
+  license: BSD (3-clause)
+  license_family: BSD
+  license_file: 
+  summary: Synchrotron Radiation Workshop
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - tschoonj

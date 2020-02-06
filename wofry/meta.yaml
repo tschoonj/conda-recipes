@@ -1,0 +1,56 @@
+{% set name = "wofry" %}
+{% set version = "1.0.19" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 195839e3f89facfa8970575c8b8474851d54b12106b6b35c570be3fdc49fd36f
+
+build:
+  number: 0
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools
+  run:
+    - h5py
+    - python
+    - syned >=1.0.12
+    - srxraylib
+
+test:
+  imports:
+    - wofry
+    - wofry.beamline
+    - wofry.beamline.optical_elements
+    - wofry.beamline.optical_elements.absorbers
+    - wofry.beamline.optical_elements.ideal_elements
+    - wofry.propagator
+    - wofry.propagator.examples
+    - wofry.propagator.propagators1D
+    - wofry.propagator.propagators2D
+    - wofry.propagator.test
+    - wofry.propagator.test.propagators
+    - wofry.propagator.util
+    - wofry.propagator.wavefront1D
+    - wofry.propagator.wavefront2D
+
+about:
+  home: https://github.com/lucarebuffi/wofry
+  license: GNU General Public v3 or later (GPLv3+)
+  license_family: GPL3
+  license_file: 
+  summary: WOFRY (Wave Optics FRamework in pYthon) kernel library
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here

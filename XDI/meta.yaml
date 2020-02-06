@@ -1,0 +1,40 @@
+# executed as
+# singularity exec -B /scratch,/dls_sw/apps /scratch/singularity/images/rhel6-dev.simg /dls_sw/apps/python/anaconda/4.6.14/64/bin/conda build --python 3.7 .
+
+{% set name = "XDI" %}
+{% set version = "1.0.0" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+        git_url: https://github.com/tschoonj/XAS-Data-Interchange
+        git_rev: XDI-autotools
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - git
+  host:
+    - git
+    - pip
+    - setuptools
+    - python
+    - autoconf
+    - automake
+    - libtool
+    - six
+    - numpy
+  run:
+    - python
+    - six
+    - numpy
+
+test:
+  imports:
+    - xdifile
+

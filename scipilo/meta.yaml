@@ -1,0 +1,40 @@
+{% set name = "scipilo" %}
+{% set version = "1.8" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+        url: file:///dls_sw/apps/scipion/2.0.0-zocalo/scipion/zocalo/dist/scipilo-{{ version }}.tar.gz
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+  noarch: python
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools
+  run:
+    - python
+    - zocalo
+    - workflows
+
+test:
+  imports:
+    - scipilo
+
+about:
+  license: BSD
+  license_family: BSD
+  license_file: 
+  summary: Zocalo runners for Scipion
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - tschoonj

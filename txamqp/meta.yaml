@@ -1,0 +1,45 @@
+{% set name = "txAMQP" %}
+{% set version = "0.8.2" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 6447a2c5294876eb58c065fe89342980e09a26959fc71ba7014cb3318941a949
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv "
+
+requirements:
+  host:
+    - pip
+    - python
+    - six
+    - twisted
+  run:
+    - python
+    - six
+    - twisted
+
+test:
+  imports:
+    - txamqp
+    - txamqp.contrib
+    - txamqp.contrib.thrift
+    - txamqp.test
+
+about:
+  home: https://github.com/txamqp/txamqp
+  license: UNKNOWN
+  license_family: OTHER
+  license_file: 
+  summary: Python library for communicating with AMQP peers and brokers using Twisted
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here

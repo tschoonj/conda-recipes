@@ -1,0 +1,49 @@
+{% set name = "transforms3d" %}
+{% set version = "0.3.1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 404c7797c78aa461cb8043081901fc5517cef342d5ff56becd74a7967ba88d78
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+  noarch: python
+
+requirements:
+  host:
+    - pip
+    - python
+  run:
+    - python
+    - numpy
+
+test:
+  requires:
+    - pytest ==3.10.1
+    - nose
+  source_files:
+    - transforms3d/tests
+  imports:
+    - transforms3d
+    - transforms3d.derivations
+    - transforms3d.tests
+  commands:
+    - py.test --pyargs transforms3d
+
+about:
+  home: http://github.com/matthew-brett/transforms3d
+  license: BSD
+  license_family: BSD
+  license_file: 
+  summary: Functions for 3D coordinate transformations
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here

@@ -1,0 +1,50 @@
+{% set name = "py4DSTEM" %}
+{% set version = "0.6" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  git_url: "https://github.com/{{ name | lower}}/{{ name }}.git"
+  git_rev: "943ec83036291846490cbd9076c7839267096772"
+
+build:
+  number: 0
+  entry_points:
+    - py4DSTEM=py4DSTEM.gui.runGUI:launch
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+
+requirements:
+  host:
+    - pip
+    - python >=3
+    - setuptools
+  run:
+    - python >=3.6
+    - setuptools
+    - numpy >=1.15
+    - scipy >=1.1
+    - hyperspy >=1.4
+    - pyqt >=5.9
+    - pyqtgraph >=0.10,<0.11
+    - qtconsole >=4.4,<4.5
+    - ncempy >=1.4.2
+
+test:
+  imports:
+    - py4DSTEM
+    - py4DSTEM.file
+    - py4DSTEM.gui
+    - py4DSTEM.process
+
+about:
+  home: https://github.com/py4dstem/py4DSTEM
+  license: GPL-3.0
+  license_file: LICENSE.txt
+  summary: open source processing and analysis of 4D-STEM data
+
+extra:
+  recipe-maintainers:
+    - tschoonj

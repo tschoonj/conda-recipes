@@ -1,0 +1,39 @@
+{% set name = "ruffus" %}
+{% set version = "2.8.0" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 609e76e88de2d11362ed2a312917508f14daf56413fd1b3c7d5a96aaa14bb5e9
+
+build:
+  number: 0
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv "
+
+requirements:
+  host:
+    - pip
+    - python
+  run:
+    - python
+
+test:
+  imports:
+    - ruffus
+
+about:
+  home: http://www.ruffus.org.uk
+  license: MIT
+  license_family: MIT
+  license_file: 
+  summary: Light-weight Python Computational Pipeline Management
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here

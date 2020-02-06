@@ -1,0 +1,38 @@
+{% set name = "xrmc" %}
+{% set version = "6.6.0" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+        git_url: https://github.com/tschoonj/xrmc-utils.git
+        git_rev: master
+
+build:
+  number: 0
+  noarch: python
+  script: "cd python && python setup.py install --single-version-externally-managed --record=record.txt"
+  entry_points:
+          - xrmc-plot = xrmc_plot.__main__:main
+          - xrmc-plot-dmesh = xrmc_plot_dmesh.__main__:main
+          - xrmc-plot-dscan = xrmc_plot_dscan.__main__:main
+
+requirements:
+  host:
+    - python
+    - setuptools
+    - xraylib
+  run:
+    - python
+    - numpy
+    - matplotlib
+    - xraylib
+
+test:
+  imports:
+    - xrmc
+
+about:
+  home: https://github.com/tschoonj/xrmc-utils
+

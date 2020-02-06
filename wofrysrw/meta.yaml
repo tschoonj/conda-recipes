@@ -1,0 +1,45 @@
+{% set name = "wofrysrw" %}
+{% set version = "1.0.29" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  git_url: "https://github.com/PaNOSC-ViNYL/wofrysrw.git"
+  git_rev: 0b69374d1820b13f553dc53cd957f8727c127f41
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+  noarch: python
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools
+  run:
+    - numpy
+    - python
+    - scipy
+    - syned
+    - wofry
+    - vinyl-srw
+
+test:
+  imports:
+    - wofrysrw
+
+about:
+  home: https://github.com/lucarebuffi/wofrysrw
+  license: GNU General Public v3 or later (GPLv3+)
+  license_family: GPL3
+  license_file: 
+  summary: WOFRY (Wave Optics FRamework in pYthon) for SRW library
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - tschoonj

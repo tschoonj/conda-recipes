@@ -1,0 +1,87 @@
+{% set name = 'ALS' %}
+{% set version = '0.0.6' %}
+
+{% set posix = 'm2-' if win else '' %}
+{% set native = 'm2w64-' if win else '' %}
+
+package:
+  name: r-{{ name|lower }}
+  version: {{ version|replace("-", "_") }}
+
+source:
+  fn: {{ name }}_{{ version }}.tar.gz
+  url:
+    - https://cran.r-project.org/src/contrib/{{ name }}_{{ version }}.tar.gz
+    - https://cran.r-project.org/src/contrib/Archive/{{ name }}/{{ name }}_{{ version }}.tar.gz
+
+
+  # You can add a hash for the file here, like md5 or sha1
+  # md5: 49448ba4863157652311cc5ea4fea3ea
+  # sha1: 3bcfbee008276084cbb37a2b453963c61176a322
+  # patches:
+   # List any patch files here
+   # - fix.patch
+
+build:
+  # If this is a new build for the same version, increment the build number.
+  number: 0
+
+  # This is required to make R link correctly on Linux.
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+
+requirements:
+  build:
+    - r-base
+    - r-iso
+    - r-nnls >=1.1
+
+  run:
+    - r-base
+    - r-iso
+    - r-nnls >=1.1
+
+test:
+  commands:
+    # You can put additional test commands to be run here.
+    - $R -e "library('ALS')"  # [not win]
+    - "\"%R%\" -e \"library('ALS')\""  # [win]
+
+  # You can also put a file called run_test.py, run_test.sh, or run_test.bat
+  # in the recipe that will be run at test time.
+
+  # requires:
+    # Put any additional test requirements here.
+
+about:
+  home: https://CRAN.R-project.org/package=ALS
+  license: GPL (>= 2)
+  summary: Alternating least squares is often used to resolve components contributing to data
+    with a bilinear structure; the basic technique may be extended to alternating constrained
+    least squares.  Commonly applied constraints include unimodality, non-negativity,
+    and normalization of components. Several data matrices may be decomposed simultaneously
+    by assuming that one of the two matrices in the bilinear decomposition is shared
+    between datasets.
+  license_family: GPL3
+
+# The original CRAN metadata for this package was:
+
+# Package: ALS
+# Type: Package
+# Title: Multivariate Curve Resolution Alternating Least Squares (MCR-ALS)
+# Version: 0.0.6
+# Author: Katharine M. Mullen
+# Maintainer: Katharine Mullen <mullenkate@gmail.com>
+# Depends: nnls (>= 1.1), Iso, R (>= 2.10)
+# Description: Alternating least squares is often used to resolve components contributing to data with a bilinear structure; the basic technique may be extended to alternating constrained least squares.  Commonly applied constraints include unimodality, non-negativity, and normalization of components. Several data matrices may be decomposed simultaneously by assuming that one of the two matrices in the bilinear decomposition is shared between datasets.
+# License: GPL (>= 2)
+# Packaged: 2015-08-03 07:12:50 UTC; kmm
+# Repository: CRAN
+# Date/Publication: 2015-08-03 11:44:35
+# NeedsCompilation: no
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml

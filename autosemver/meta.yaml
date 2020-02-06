@@ -1,0 +1,46 @@
+{% set name = "autosemver" %}
+{% set version = "0.5.3" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 4f4e5c30a51acabd454eddb28fb958a6cd8ba93ce18ab9484bdcb8009e5163a0
+
+build:
+  number: 0
+  entry_points:
+    - autosemver=autosemver:main
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv "
+
+requirements:
+  host:
+    - dulwich
+    - pip
+    - python
+    - setuptools
+  run:
+    - dulwich
+    - python
+    - setuptools
+
+test:
+  imports:
+    - autosemver
+  commands:
+    - autosemver --help
+
+about:
+  home: https://github.com/david-caro/python-autosemver
+  license: GPLv3
+  license_family: GPL3
+  license_file: 
+  summary: Tools to handle automatic semantic versioning in python
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - your-github-id-here

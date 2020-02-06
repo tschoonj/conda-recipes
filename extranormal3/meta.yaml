@@ -1,0 +1,41 @@
+{% set name = "extranormal3" %}
+{% set version = "0.0.3" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 3a37612c1be26043f9790ebc45f1e5cc75e4ecb8864b1bb679cdd547b09cdbff
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+  noarch: python
+
+requirements:
+  host:
+    - pip
+    - python
+    - setuptools
+  run:
+    - python
+    - scipy
+
+test:
+  imports:
+    - extranormal3
+
+about:
+  home: The package home page
+  license: GPL >= v.3
+  license_family: GPL3
+  license_file: 
+  summary: Quick normalization of a bunch of Quick-EXAFS spectra
+  doc_url: 
+  dev_url: 
+
+extra:
+  recipe-maintainers:
+    - tschoonj

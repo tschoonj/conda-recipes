@@ -1,0 +1,47 @@
+{% set name = "Orange-Spectroscopy" %}
+{% set version = "0.4.4" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+        url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+        sha256: c5555398602edce8199bec6842df786208bd397eb385c60501c73bb68243336a
+
+build:
+  number: 0
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv "
+
+requirements:
+  host:
+    - pip
+    - python >=3
+    - setuptools
+  run:
+    - python >=3
+    - Orange3
+    - spectral
+    - scipy
+    - serverfiles
+    - opusFC
+    - h5py
+    - AnyQt
+    - colorcet
+    - pyqtgraph
+    - extranormal3
+
+test:
+  requires:
+    - pytest
+  imports:
+    - orangecontrib.spectroscopy
+  source_files:
+    - orangecontrib/spectroscopy/tests
+  commands:
+    - py.test --pyargs orangecontrib/spectroscopy/tests
+
+about:
+  home: https://github.com/Quasars/orange-spectroscopy
+
