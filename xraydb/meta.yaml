@@ -1,0 +1,42 @@
+{% set name = "xraydb" %}
+{% set version = "4.3.1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: cca3e97cea0118b2634278c045aecad0de4fc5247c07e484663e4e64e58fcc85
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . -vv"
+  noarch: python
+
+requirements:
+  host:
+    - pip
+    - python
+  run:
+    - numpy
+    - python
+    - scipy
+    - sqlalchemy
+
+test:
+  requires:
+    - pytest
+  imports:
+    - xraydb
+
+about:
+  home: "http://github.com/xraypy/XrayDB"
+  license: public domain
+  license_family: PUBLIC-DOMAIN
+  license_file: LICENSE
+  summary: "X-ray Reference Data for the Elements using SQLite"
+
+extra:
+  recipe-maintainers:
+    - tschoonj
