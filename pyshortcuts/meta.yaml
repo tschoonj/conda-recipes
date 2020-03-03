@@ -1,0 +1,41 @@
+{% set name = "pyshortcuts" %}
+{% set version = "1.7.1" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: 94d87302bdd8a5ea222c56d260ea9d9bd27817d97044c47c47872e7812b22e22
+
+build:
+  number: 0
+  entry_points:
+    - pyshortcut = pyshortcuts:shortcut_cli
+  script: "{{ PYTHON }} -m pip install . -vv"
+  noarch: python
+
+requirements:
+  host:
+    - python
+  run:
+    - python
+    - six
+
+test:
+  imports:
+    - pyshortcuts
+  commands:
+    - pyshortcut --help
+
+about:
+  home: "http://github.com/newville/pyshortcuts"
+  license: BSD
+  license_family: BSD
+  license_file: LICENSE
+  summary: "create desktop and Start Menu shortcuts for python scripts"
+
+extra:
+  recipe-maintainers:
+    - tschoonj
