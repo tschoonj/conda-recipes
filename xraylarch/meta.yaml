@@ -1,0 +1,49 @@
+{% set name = "xraylarch" %}
+{% set version = "0.9.47" %}
+
+package:
+  name: "{{ name|lower }}"
+  version: "{{ version }}"
+
+source:
+  url: "https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz"
+  sha256: d9bba258bc6a35cbd9c81c7f3cf5b4473f0150273c576aedf6399351b1514232 
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . --no-deps --ignore-installed -vv "
+  noarch: python
+
+requirements:
+  host:
+    - pip
+    - python >=3.5.1
+    - setuptools
+  run:
+    - matplotlib-base
+    - python >=3.5.1
+    - numpy
+    - lmfit
+    - h5py
+    - requests
+
+    # from tom.schoonjans channel
+    - xraydb
+    - pyshortcuts
+
+test:
+  imports:
+    - larch
+    - larch_plugins.xafs
+
+about:
+  home: https://xraypy.github.io/xraylarch/
+  license: BSD 2-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: X-ray Analysis for Synchrotron Applications using Python
+  dev_url: https://github.com/xraypy/xraylarch
+
+extra:
+  recipe-maintainers:
+    - tschoonj
